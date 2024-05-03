@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color:cadetblue;
+            text-align: center;
+            
+            justify-content: center;
+        }
+        table{
+            border-collapse: collapse;
+            width: 300px;
+            margin: 20px auto;
+        }
+        th, td {
+            width: 100px;
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: center  ;
+        }
+        th {
+            background-color: #a44242;
+        }
+        #submit2{
+            padding: 4px;
+            margin-top: 2px;
+            background-color: rgb(39, 164, 242);
+            border: 1px solid;
+            border-radius: 5px;
+            color: black;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        #uu{
+            padding-top: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: darkred; ">Enter String 1 (format x#y#z)</h2>
+    <input style="padding: 6px; border: 2px ; border-radius: 4px;" type="text" placeholder="eg: x#y#z" id="in1">
+    <br>
+
+    <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: darkred; ">Enter String 2 (format x#y#z)</h2>
+    <input style="padding: 6px; border: 2px ; border-radius: 4px;" type="text" placeholder="eg: x#y#z" id="in2">
+
+    <div id="tablediv"></div>
+    <div id="uu">
+    <button id="submit2">Generate Table</button>
+    </div>
+
+    <script>
+        document.getElementById("submit2").onclick=function(){
+            document.getElementById("tablediv").innerHTML="";
+            
+            var in1=document.getElementById("in1").value.trim();
+            var in2=document.getElementById("in2").value.trim();
+            var parts1=in1.split("#");
+            var parts2=in2.split("#");
+
+            var row1=parseInt(parts1[0]);
+            var col1=parseInt(parts1[1]);
+            var s1=parseInt(parts1[2]);
+
+            var table1HTML="<h3>Table 1</h3><table>";
+
+            for(var i=0; i<row1; i++)
+            {
+                table1HTML += "<tr>";
+                for(var j=0; j<col1; j++)
+                {
+                    var val=(j+s1)*(i+1);
+                    table1HTML +="<td>" + val + "</td>";
+                }
+                table1HTML += "</tr>"
+            }
+            table1HTML+="</table>";
+
+
+            var row2=parseInt(parts2[0]);
+            var col2=parseInt(parts2[1]);
+            var v2=parseInt(parts2[2]);
+
+            var table2HTML="<h3>Table 2</h3><table>";
+
+            for(var i=0; i<row2; i++)
+            {
+                table2HTML+="<tr>";
+                for(var j=0; j<col2; j++)
+                {
+                    var val=(j+v2)*(i+1);
+                    table2HTML+="<td>"+val+"</td>";
+                }
+                table2HTML+="</tr>"
+            }
+            table2HTML+="</table>";
+
+            document.getElementById("tablediv").innerHTML=table1HTML+table2HTML;
+
+            var table3HTML="";
+            if(row1==row2 && col1==col2)
+            {
+                table3HTML="<h3>Table 3</h3><table>";
+                    if(s1==v2)
+                    {
+                        for(var i=0; i<row2; i++)
+                        {
+                            table3HTML+="<tr>";
+                            for(var j=0; j<col2; j++)
+                            {
+                                var val=(j+v2)*(i+1);
+                                table3HTML+="<td>"+val+"</td>";
+                            }
+                            table3HTML+="</tr>"
+                        }
+                        // table3HTML+="</table>";
+                    }
+                    else{
+                        for(var i=0; i<row2; i++)
+                        {
+                            table3HTML+="<tr>";
+                            for(var j=0; j<col2; j++)
+                            {
+                                var val=(j+v2)*(i+1)*((j+s1)*(i+1));
+                                table3HTML+="<td>"+val+"</td>";
+                            }
+                            table3HTML+="</tr>"
+                        }
+                        table3HTML+="</table>";
+                    }
+                   
+            }
+            document.getElementById("tablediv").innerHTML+=table3HTML;
+            
+        }
+    </script>
+
+</body>
+</html>
